@@ -24,6 +24,7 @@ class PlacesAutocompleteForm extends Component {
     const inputProps = {
       value: this.state.address,
       onChange: this.onChange,
+      autoFocus: true,
       placeholder: 'ZOOM!',
     };
 
