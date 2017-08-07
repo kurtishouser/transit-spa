@@ -18,13 +18,16 @@ export class CurrentLocation extends Component {
       navigator.geolocation.getCurrentPosition((pos) => {
         const lat = pos.coords.latitude;
         const lng = pos.coords.longitude;
-        const location = {
-          address: `${lat}, ${lng}`, // until reverse geocoding is implemented
-          lat,
-          lng,
-        };
-        this.setState({ geolocating: false });
-        this.props.updateCurrentLocation(location);
+        const location = { lat, lng };
+        const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${lat},${lng}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`;
+        fetch(url)
+          .then(response => response.json())
+          .then((data) => {
+            location.address = data.results[0].formatted_address;
+            this.setState({ geolocating: false });
+            this.props.updateCurrentLocation(location);
+          })
+          .catch(e => e);
       });
     }
   }
