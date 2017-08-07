@@ -5,7 +5,7 @@ import { Header } from 'semantic-ui-react';
 import '../destination.css';
 
 const DestinationHeader = ({ name }) =>
-  (<Header as="h1" className="destination-header">
+  (<Header as="h2" className="destination-header">
     {name}
   </Header>);
 
