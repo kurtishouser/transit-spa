@@ -95,8 +95,7 @@ JourneyTable.defaultProps = {
   ],
 };
 export const mapStateToProps = (state, ownProps) => {
-  const origin = `${state.configuration.currentLocation.lat},
-                  ${state.configuration.currentLocation.lng}`;
+  const origin = `${state.configuration.currentLocation.lat},${state.configuration.currentLocation.lng}`;
   const destinationsById = state.destinations.byId;
   const destinationId = ownProps.id;
   const journeys = state.journeys.byDestinationId[destinationId];

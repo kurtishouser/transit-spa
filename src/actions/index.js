@@ -1,9 +1,17 @@
 import * as TYPES from '../constants/constants';
 
-export function updateCurrentLocation(location) {
-  return {
-    type: TYPES.UPDATE_CURRENT_LOCATION,
-    currentLocation: location,
+export function updateCurrentLocation() {
+  return async (dispatch, getState, { Api }) => {
+    dispatch({
+      type: TYPES.GEOLOCATING,
+    });
+
+    const location = await Api.getCurrentLocation();
+
+    return dispatch({
+      type: TYPES.UPDATE_CURRENT_LOCATION,
+      currentLocation: location,
+    });
   };
 }
 

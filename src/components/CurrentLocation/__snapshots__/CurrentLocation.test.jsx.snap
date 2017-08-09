@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CurrentLocation should render Determining your current location... 1`] = `
+<Segment>
+  <h1>
+    Determining your current location...
+  </h1>
+</Segment>
+`;
