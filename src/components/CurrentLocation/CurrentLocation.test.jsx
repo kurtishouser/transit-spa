@@ -12,9 +12,15 @@ describe('CurrentLocation', () => {
     expect(toJson(component)).toMatchSnapshot();
   });
 
+  it('should render Current Location: YOUR_ADDRESS when geolocating prop is false', () => {
+    const currentLocation = { address: '1234 Main St' };
+    const component = shallow(<CurrentLocation geolocating={false} currentLocation={currentLocation} />);
+    expect(toJson(component)).toMatchSnapshot();
+  });
+
   it('calls updateCurrentLocation on load', () => {
     const updateCurrentLocation = jest.fn();
-    mount(<CurrentLocation />);
+    mount(<CurrentLocation updateCurrentLocation={updateCurrentLocation} />);
 
     expect(updateCurrentLocation).toHaveBeenCalled();
   });

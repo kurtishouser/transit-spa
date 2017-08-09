@@ -1,5 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`CurrentLocation should render Current Location: YOUR_ADDRESS when geolocating prop is false 1`] = `
+<Segment>
+  <h1>
+    Current Location: 1234 Main St
+  </h1>
+</Segment>
+`;
+
 exports[`CurrentLocation should render Determining your current location... 1`] = `
 <Segment>
   <h1>
