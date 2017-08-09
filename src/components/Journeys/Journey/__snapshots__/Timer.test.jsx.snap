@@ -1,6 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Timer renders when passed seconds as props 1`] = `
+exports[`Timer renders double-digit minutes and seconds when passed seconds as props 1`] = `
+<div>
+  10
+  :
+  00
+</div>
+`;
+
+exports[`Timer renders minutes and seconds when passed seconds as props 1`] = `
 <div>
   02
   :

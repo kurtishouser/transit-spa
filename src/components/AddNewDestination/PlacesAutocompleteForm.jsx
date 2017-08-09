@@ -7,25 +7,41 @@ import { bindActionCreators } from 'redux';
 import { addDestination } from '../../actions';
 import './button.css';
 
-class PlacesAutocompleteForm extends Component {
+import Api from '../../utils/Api';
+
+export class PlacesAutocompleteForm extends Component {
   constructor(props) {
     super(props);
     this.state = { address: '600 Guerrero St, San Francisco, CA 94110' };
     this.onChange = address => this.setState({ address });
   }
 
+  reportError = (message) => {
+    /* eslint-disable no-alert */
+    alert(message);
+    this.setState({ address: '' });
+  };
+
   handleFormSubmit = (event) => {
     event.preventDefault();
-    this.props.onClick();
-    this.props.addDestination(this.state.address);
+
+    Api.fetchJourneys(this.props.origin, this.state.address)
+      .then((result) => {
+        if (result.length > 1) {
+          this.props.addDestination(this.state.address);
+          this.props.onClick();
+          return;
+        }
+        this.reportError('no transit options available');
+      })
+      .catch(e => e);
   };
 
   render() {
     const inputProps = {
       value: this.state.address,
       onChange: this.onChange,
-      autoFocus: true,
-      placeholder: 'ZOOM!',
+      placeholder: 'Choose a new destination',
     };
 
     return (
@@ -42,11 +58,21 @@ class PlacesAutocompleteForm extends Component {
 PlacesAutocompleteForm.propTypes = {
   onClick: PropTypes.func.isRequired,
   addDestination: PropTypes.func.isRequired,
+  origin: PropTypes.string.isRequired,
 };
 
 PlacesAutocompleteForm.defaultProps = {
   onClick: () => {},
   addDestination: () => {},
+  origin: '',
+};
+
+export const mapStateToProps = (state) => {
+  const origin = state.configuration.currentLocation.address;
+
+  return {
+    origin,
+  };
 };
 
 export const mapDispatchToProps = dispatch =>
@@ -57,4 +83,4 @@ export const mapDispatchToProps = dispatch =>
     dispatch,
   );
 
-export default connect(null, mapDispatchToProps)(PlacesAutocompleteForm);
+export default connect(mapStateToProps, mapDispatchToProps)(PlacesAutocompleteForm);

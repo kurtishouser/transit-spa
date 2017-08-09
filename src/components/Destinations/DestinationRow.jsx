@@ -7,7 +7,7 @@ import JourneyTable from '../Journeys/JourneyTable';
 import DestinationHeader from './Destination/DestinationHeader';
 import './destination.css';
 
-const DestinationRow = ({ id, name }) =>
+export const DestinationRow = ({ id, name }) =>
   (<Container>
     <Segment compact>
       <DestinationHeader name={name} />

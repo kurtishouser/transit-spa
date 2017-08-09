@@ -4,33 +4,48 @@ import PropTypes from 'prop-types';
 class Timer extends Component {
   constructor(props) {
     super(props);
-    this.state = { count: props.seconds, expired: false };
+    this.state = { currentCount: props.seconds };
+  }
+
+  componentDidMount() {
+    this.timerID = setInterval(() => this.decrement(), 1000);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ count: nextProps.seconds });
+    this.setState({ currentCount: nextProps.seconds });
   }
 
-  decrementOrExpire() {
-    return this.state.count > 0 ? { count: this.state.count - 1 } : { expired: true };
+  componentWillUnmount() {
+    clearInterval(this.timerID);
+  }
+
+  decrement() {
+    const newCount = this.state.currentCount - 1;
+
+    if (newCount >= 1) {
+      this.setState({ currentCount: newCount });
+    }
+
+    if (newCount === 0) {
+      this.props.onComplete();
+      clearInterval(this.timerID);
+    }
   }
 
   render() {
-    const { count } = this.state;
+    const { currentCount } = this.state;
 
-    setTimeout(() => this.setState(this.decrementOrExpire), 1000);
-
-    const sec = count % 60;
-    const min = (count - sec) / 60;
+    const sec = currentCount % 60;
+    const min = (currentCount - sec) / 60;
 
     const seconds = sec < 10 ? `0${sec}` : sec;
     const minutes = min < 10 ? `0${min}` : min;
 
-    return this.state.expired
-      ? this.props.onComplete()
-      : <div>
+    return (
+      <div>
         {minutes}:{seconds}
-      </div>;
+      </div>
+    );
   }
 }
 

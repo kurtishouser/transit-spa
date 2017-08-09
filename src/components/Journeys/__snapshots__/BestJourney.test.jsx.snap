@@ -2,6 +2,7 @@
 
 exports[`BestJourney should render when passed required props 1`] = `
 <BestJourney
+  callRefreshJourneys={[Function]}
   conditionStatus="on-time"
   eta="11:00am"
   steps={
@@ -29,6 +30,7 @@ exports[`BestJourney should render when passed required props 1`] = `
           role="list"
         >
           <TimeToLeave
+            callRefreshJourneys={[Function]}
             timeToLeaveInSeconds={120}
           >
             <ListItem>
@@ -113,6 +115,7 @@ exports[`BestJourney should render when passed required props 1`] = `
                           />
                         </Icon>
                         <StepContent
+                          description="to Some St. Station"
                           title="Walk"
                         >
                           <div
@@ -127,6 +130,15 @@ exports[`BestJourney should render when passed required props 1`] = `
                                 Walk
                               </div>
                             </StepTitle>
+                            <StepDescription
+                              description="to Some St. Station"
+                            >
+                              <div
+                                className="description"
+                              >
+                                to Some St. Station
+                              </div>
+                            </StepDescription>
                           </div>
                         </StepContent>
                       </div>

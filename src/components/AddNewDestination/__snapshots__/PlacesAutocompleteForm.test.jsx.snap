@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PlacesAutocompleteForm should render an empty form 1`] = `
+<form
+  className="ui semantic"
+  onSubmit={[Function]}
+>
+  <PlacesAutocomplete
+    autocompleteItem={[Function]}
+    classNames={Object {}}
+    clearItemsOnError={false}
+    debounce={200}
+    googleLogo={true}
+    googleLogoType="default"
+    highlightFirstSuggestion={false}
+    inputProps={
+      Object {
+        "onChange": [Function],
+        "placeholder": "Choose a new destination",
+        "value": "600 Guerrero St, San Francisco, CA 94110",
+      }
+    }
+    onError={[Function]}
+    options={Object {}}
+    styles={Object {}}
+  />
+  <button
+    className="ui green button"
+    id="submit-destination"
+    type="submit"
+  >
+    Submit
+  </button>
+</form>
+`;

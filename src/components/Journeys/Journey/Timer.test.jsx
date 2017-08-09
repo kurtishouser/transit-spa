@@ -1,51 +1,64 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import Timer from './Timer';
 
 describe('Timer', () => {
-  it('renders when passed seconds as props', () => {
-    const seconds = 120;
-    const callback = () => {};
+  const callback = () => {};
 
-    const component = shallow(<Timer seconds={seconds} onComplete={callback} />);
+  it('renders minutes and seconds when passed seconds as props', () => {
+    const component = shallow(<Timer seconds={120} onComplete={callback} />);
     expect(toJson(component)).toMatchSnapshot();
   });
 
-  it('accepts a callback function as props', () => {
-    const seconds = 120;
-    const callback = () => {};
+  it('renders double-digit minutes and seconds when passed seconds as props', () => {
+    const component = shallow(<Timer seconds={600} onComplete={callback} />);
+    expect(toJson(component)).toMatchSnapshot();
+  });
 
-    const component = mount(<Timer seconds={seconds} onComplete={callback} />);
+  it('has decrement method', () => {
+    const component = shallow(<Timer seconds={120} onComplete={callback} />);
+    expect(component.instance().decrement());
+  });
+
+  it('accepts a callback function as props', () => {
+    const component = mount(<Timer seconds={120} onComplete={callback} />);
     expect(component.props().onComplete).toEqual(callback);
   });
 
-  it('initializes with count equal the the seconds and expired equal to false in the state', () => {
-    const seconds = 120;
-    const callback = () => {};
-
-    const component = mount(<Timer seconds={seconds} onComplete={callback} />);
-    expect(component.state('count')).toEqual(120);
-    expect(component.state('expired')).toEqual(false);
+  it('initializes with currentCount equal to the seconds passed in as props', () => {
+    const component = mount(<Timer seconds={120} onComplete={callback} />);
+    expect(component.state('currentCount')).toEqual(120);
   });
 
-  it('calls decrementOrExpire and decreases the count', () => {
-    const seconds = 120;
-    const expected = { count: seconds - 1 };
-    const callback = () => {};
-
-    const component = shallow(<Timer seconds={seconds} onComplete={callback} />);
-    expect(component.instance().state.count).toEqual(seconds);
-    expect(component.instance().decrementOrExpire().count).toEqual(expected.count);
+  it('calls decrement and decreases the currentCount', () => {
+    const component = shallow(<Timer seconds={120} onComplete={callback} />);
+    expect(component.instance().state.currentCount).toEqual(120);
+    component.instance().decrement();
+    expect(component.instance().state.currentCount).toEqual(119);
   });
 
-  it('has componentWillReceiveProps', () => {
-    const initialSeconds = 120;
-    const newSeconds = 300;
-    const callback = () => {};
+  it('has componentWillUnmount method', () => {
+    const component = shallow(<Timer seconds={120} onComplete={callback} />);
+    expect(component.instance().componentWillUnmount());
+  });
 
-    const component = shallow(<Timer seconds={initialSeconds} onComplete={callback} />);
-    expect(component.instance().state.count).toEqual(initialSeconds);
-    // expect(component.instance().componentWillReceiveProps(newSeconds).count).toEqual(newSeconds);
+  it('has componentDidMount method', () => {
+    const component = shallow(<Timer seconds={120} onComplete={callback} />);
+    expect(component.instance().componentDidMount());
+  });
+
+  it('has componentWillReceiveProps method', () => {
+    const component = shallow(<Timer seconds={120} onComplete={callback} />);
+    expect(component.instance().state.currentCount).toEqual(120);
+    component.instance().componentWillReceiveProps({ seconds: 300 });
+    expect(component.instance().state.currentCount).toEqual(300);
+  });
+
+  it('calls onComplete when decrementing to 0', () => {
+    const onComplete = jest.fn();
+    const component = mount(<Timer seconds={1} loading onComplete={onComplete} />);
+    component.instance().decrement();
+    expect(onComplete).toHaveBeenCalled();
   });
 });

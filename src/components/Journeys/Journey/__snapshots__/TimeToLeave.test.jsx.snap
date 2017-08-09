@@ -1,49 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TimeToLeave should render list item 1`] = `
-<TimeToLeave
-  timeToLeaveInSeconds={120}
->
-  <ListItem>
-    <div
-      className="item"
-      onClick={[Function]}
-      role="listitem"
-    >
-      <Icon
-        as="i"
-        name="hourglass half"
-        size="large"
-      >
-        <i
-          aria-hidden="true"
-          className="hourglass half large icon"
-        />
-      </Icon>
-      <ListContent>
-        <div
-          className="content"
-        >
-          <ListHeader>
-            <div
-              className="header"
-            >
-              leave in
-            </div>
-          </ListHeader>
-          <Timer
-            onComplete={[Function]}
-            seconds={120}
-          >
-            <div>
-              02
-              :
-              00
-            </div>
-          </Timer>
-        </div>
-      </ListContent>
-    </div>
-  </ListItem>
-</TimeToLeave>
+exports[`TimeToLeave renders list item 1`] = `
+<ListItem>
+  <Icon
+    as="i"
+    name="hourglass half"
+    size="large"
+  />
+  <ListContent>
+    <ListHeader>
+      leave in
+    </ListHeader>
+    <Timer
+      onComplete={[Function]}
+      seconds={120}
+    />
+  </ListContent>
+</ListItem>
 `;

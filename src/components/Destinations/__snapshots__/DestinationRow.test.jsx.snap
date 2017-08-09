@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DestinationRow should render an empty form 1`] = `
+<Container>
+  <Segment
+    compact={true}
+  >
+    <DestinationHeader
+      name=""
+    />
+  </Segment>
+  <Segment
+    compact={true}
+    textAlign="center"
+  >
+    <Connect(JourneyTable)
+      id={1}
+    />
+  </Segment>
+</Container>
+`;

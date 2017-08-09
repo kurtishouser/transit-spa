@@ -8,10 +8,13 @@ import JourneyVisualization from './Journey/JourneyVisualization';
 import ArriveByEstimate from './Journey/ArriveByEstimate';
 import CurrentConditionsStatus from './Journey/CurrentConditionsStatus';
 
-const BestJourney = ({ timeToLeaveInSeconds, steps, eta, conditionStatus }) =>
+const BestJourney = ({ timeToLeaveInSeconds, steps, eta, conditionStatus, callRefreshJourneys }) =>
   (<Segment>
     <List divided horizontal size="huge">
-      <TimeToLeave timeToLeaveInSeconds={timeToLeaveInSeconds} />
+      <TimeToLeave
+        timeToLeaveInSeconds={timeToLeaveInSeconds}
+        callRefreshJourneys={callRefreshJourneys}
+      />
       <JourneyVisualization active={false} steps={steps} />
       <ArriveByEstimate eta={eta} />
       <CurrentConditionsStatus conditionStatus={conditionStatus} />
@@ -23,6 +26,7 @@ BestJourney.propTypes = {
   steps: PropTypes.arrayOf(PropTypes.object).isRequired,
   eta: PropTypes.string.isRequired,
   conditionStatus: PropTypes.string.isRequired,
+  callRefreshJourneys: PropTypes.func.isRequired,
 };
 
 BestJourney.defaultProps = {
@@ -30,6 +34,7 @@ BestJourney.defaultProps = {
   steps: [{}],
   eta: '',
   conditionStatus: 'on-time',
+  callRefreshJourneys: () => {},
 };
 
 export default BestJourney;

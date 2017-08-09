@@ -178,6 +178,8 @@ describe('actions', () => {
                 instruction: 'Walk to Montgomery St. Station',
                 mode: 'WALKING',
                 duration: '8 mins',
+                shortName: '',
+                agency: '',
               },
             ],
           },
