@@ -14,7 +14,12 @@ describe('CurrentLocation', () => {
 
   it('should render Current Location: YOUR_ADDRESS when geolocating prop is false', () => {
     const currentLocation = { address: '1234 Main St' };
-    const component = shallow(<CurrentLocation geolocating={false} currentLocation={currentLocation} />);
+    const component = shallow(
+      <CurrentLocation
+        geolocating={false}
+        currentLocation={currentLocation}
+      />,
+    );
     expect(toJson(component)).toMatchSnapshot();
   });
 
